@@ -24,7 +24,7 @@ public class cameraTrack : MonoBehaviour
     }
     void Start()
     {
-        player = GameObject.Find("simPlayer");
+        player = GameObject.Find("thePlayer");
         target = player.GetComponent<Transform>();
     }
 

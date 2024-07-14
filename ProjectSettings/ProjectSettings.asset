@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: "\u539F\u5B50\u57CE\u958B\u767C\u7D44"
   productName: Return The Curse
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}

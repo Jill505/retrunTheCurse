@@ -12,7 +12,6 @@ public class GameCore : MonoBehaviour
 
     public GameObject damageZone;
 
-
     public Image slashCooldownImage;
 
     public GameObject slashSoundEffect;
@@ -32,7 +31,6 @@ public class GameCore : MonoBehaviour
 
 
     //玩家參數
-
     public float mySpeed;
 
     public float facingDiraction = 1f;
@@ -154,6 +152,9 @@ public class GameCore : MonoBehaviour
         else if (angle > -135 && angle <= -45)
         {
             //Debug.Log("向下滑動");
+
+            facingDiraction = 0;
+            mySpeed = 0;
         }
         else
         {
@@ -187,6 +188,8 @@ public class GameCore : MonoBehaviour
         mySpeed = slashDistance;
 
         //DamageZone Open
+        damageZone.SetActive(true);
+        pCore.ivaincible = true;
 
         yield return new WaitForSeconds(slashDurition);
 
@@ -195,11 +198,14 @@ public class GameCore : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         //DamageZone Close
+        damageZone.SetActive(false);
         slashClug = false;
         actionClug = false;
         slashing = false;
         mySpeed = maxmentSpeed;
         yield return new WaitForSeconds(0.1f);
+
+        pCore.ivaincible = false; 
     }
 
     void mapGen()
