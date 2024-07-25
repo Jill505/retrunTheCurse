@@ -10,6 +10,11 @@ public class cameraTrack : MonoBehaviour
     public Transform target;
     public float fulence = 0.16f;
     bool keepTimeCal = false;
+
+    public float timeStopTime = 0.2f;
+    public float timeStopScale = 0.75f;
+
+    public Animator animator;
     int randomDir
     {
         get
@@ -47,7 +52,19 @@ public class cameraTrack : MonoBehaviour
             }
         }
     }
+    public void closeUp()
+    {
+        animator.SetTrigger("closeUP");
+        Time.timeScale = timeStopScale;
+        Invoke("revoc",timeStopTime);
+    }
+    void revoc()
+    {
+        Time.timeScale = 1f;
+    }
 
+
+    
     public void shakeScreen(float force, float time)//次數為0.025秒一次 也就是40幀
     {
         StartCoroutine(shake(force));

@@ -20,10 +20,13 @@ public class mobAI_zombie_damageZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (aiZombie.mobCore.aiFunctioning)
         {
-            Debug.Log("zombie 擊中玩家！");
-            aiZombie.hurtPlayer();
+            if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerCore>().ivaincible == false)
+            {
+                Debug.Log("zombie 擊中玩家！");
+                aiZombie.hurtPlayer();
+            }
         }
     }
 }

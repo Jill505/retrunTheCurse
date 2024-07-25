@@ -9,8 +9,7 @@ public class mobAI_zombie : MonoBehaviour
     public Rigidbody2D rb2d;
 
     public GameObject zombieDamageZone;
-
-    public bool aiFunctioning = true;
+    public MobCore mobCore;
 
     //殭屍技能組數據
     public float zombieDamage = 1;
@@ -24,6 +23,7 @@ public class mobAI_zombie : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        mobCore = gameObject.GetComponent<MobCore>();
         pCore = GameObject.Find("thePlayer").GetComponent<PlayerCore>();
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         zombieDamageZone = gameObject.transform.GetChild(0).gameObject;
@@ -32,7 +32,7 @@ public class mobAI_zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (aiFunctioning)
+        if (mobCore.aiFunctioning)
         {
             Vector2 playerPosition = pCore.gameObject.transform.position;
 
@@ -69,16 +69,22 @@ public class mobAI_zombie : MonoBehaviour
         pCore.injured(zombieDamage);
         zombieDamageZone.SetActive(false);
 
-        aiFunctioning = false;
+        mobCore.aiFunctioning = false;
 
         Invoke("damageRecover", zombieAttackSpeed);
     }
     public void damageRecover()
     {
         zombieDamageZone.SetActive(true);
-        aiFunctioning = true;
+        mobCore.aiFunctioning = true;
 
         myVelocity = 0;
+        zombieFacingDiraction = 0;
+    }
+
+    public void zombieDead()
+    {
+        mobCore.aiFunctioning = false;
         zombieFacingDiraction = 0;
     }
 }
