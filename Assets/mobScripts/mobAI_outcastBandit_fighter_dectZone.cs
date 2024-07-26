@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JigsawCornerStone : MonoBehaviour
+public class mobAI_outcastBandit_fighter_dectZone : MonoBehaviour
 {
-    public bool[] top = new bool[18];
-    public bool[] button = new bool[18];
     // Start is called before the first frame update
     void Start()
     {

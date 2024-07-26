@@ -12,7 +12,7 @@ public class jumpPad : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gCore = GameObject.Find("GameCore").GetComponent<GameCore>();
     }
 
     // Update is called once per frame
