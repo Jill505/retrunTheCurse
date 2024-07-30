@@ -20,6 +20,8 @@ public class mobAI_outcastBandit_fighter : MonoBehaviour
     public float banditFacingDiraction = 0;
     float myVelocity;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,12 +43,14 @@ public class mobAI_outcastBandit_fighter : MonoBehaviour
                 //player is at mob's right
                 banditFacingDiraction = -1;
                 transform.localRotation = Quaternion.Euler(0, 180, 0);
+                animator.SetBool("running",true);
             }
             else
             {
                 //player is at mob's left
                 banditFacingDiraction = 1;
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
+                animator.SetBool("running", true);
             }
 
             rb2d.velocity = new Vector2(myVelocity * banditFacingDiraction, rb2d.velocity.y);
@@ -61,28 +65,35 @@ public class mobAI_outcastBandit_fighter : MonoBehaviour
         }
     }
 
-    public void hurtPlayer()
+    public void AttackPlayer()
     {
         myVelocity = 0;
         banditFacingDiraction = 0;
 
-        pCore.injured(banditDamage);
-        banditDamageZone.SetActive(false);
+        animator.SetTrigger("attack");
+        animator.SetBool("running", false);
 
         mobCore.aiFunctioning = false;
+        mobCore.casting = true;
+        Debug.Log("stoped");
 
         Invoke("damageRecover", banditAttackSpeed);
     }
     public void damageRecover()
     {
-        banditDetecZone.SetActive(true);
+        Debug.Log("Active");
         mobCore.aiFunctioning = true;
+        mobCore.casting = false;
 
         myVelocity = 0;
         banditFacingDiraction = 0;
     }
+    public void hurtPlayer()
+    {
+        pCore.injured(banditDamage);
+    }
 
-    public void zombieDead()
+    public void banditDead()
     {
         mobCore.aiFunctioning = false;
         banditFacingDiraction = 0;

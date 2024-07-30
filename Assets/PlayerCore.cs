@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerCore : MonoBehaviour
 {
+    public GameCore gCore;
     public float health;
 
     public float slashDamage;
@@ -13,7 +14,7 @@ public class PlayerCore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        gCore = GameObject.Find("GameCore").GetComponent<GameCore>();
     }
 
     // Update is called once per frame
@@ -30,5 +31,17 @@ public class PlayerCore : MonoBehaviour
         {
             //player dead;
         }
+        else
+        {
+            StartCoroutine(injuredIm());
+        }
+    }
+
+    IEnumerator injuredIm()
+    {
+        ivaincible = true;
+        yield return new WaitForSeconds(gCore.injuredImortalTime);
+        //Play Animation
+        ivaincible = false;
     }
 }

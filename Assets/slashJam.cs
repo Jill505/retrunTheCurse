@@ -26,7 +26,6 @@ public class slashJam : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Someone Entry my zone Trigger");
         if (jamActive)
         {
             if (collision.gameObject.tag == "Player")

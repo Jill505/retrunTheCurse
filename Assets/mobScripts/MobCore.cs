@@ -7,6 +7,7 @@ using UnityEngine;
 public class MobCore : MonoBehaviour
 {
     public GameCore gCore;
+    public Transform playerTransform;
 
     public float hp;
     public bool dead;
@@ -19,6 +20,11 @@ public class MobCore : MonoBehaviour
 
     public bool deadClug = false;
 
+    public float trackingDistance = 8.5f;
+    public float distanceWithPlayer;
+
+    public bool casting = false;//怪物冷卻中 
+
 
     //public string mobType = "Zombie";
 
@@ -26,14 +32,29 @@ public class MobCore : MonoBehaviour
     void Start()
     {
         gCore = GameObject.Find("GameCore").GetComponent<GameCore>();
+        playerTransform = GameObject.Find("thePlayer").GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        distanceWithPlayer = Vector2.Distance(gameObject.transform.position, playerTransform.position);
+
+
         if (dead == false)
         {
             cal();
+            if (distanceWithPlayer < trackingDistance)//玩家在追蹤範圍內
+            {
+                if (casting == false)
+                {
+                    aiFunctioning = true;
+                }
+            }
+            else
+            {
+                aiFunctioning = false;
+            }
         }
         else
         {

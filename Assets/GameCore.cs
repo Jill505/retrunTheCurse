@@ -23,6 +23,8 @@ public class GameCore : MonoBehaviour
     public bool actionClug;
     public bool slashCooldowning;
 
+    public bool ableToControl = true;
+
     private Vector2 startTouchPosition; // 起始觸碰位置
     private Vector2 endTouchPosition; // 終止觸碰位置
     public float swipeRange = 50; // 判定滑動的距離範圍
@@ -32,6 +34,8 @@ public class GameCore : MonoBehaviour
 
     //玩家參數
     public float mySpeed;
+
+    public float injuredImortalTime = 0.8f;
 
     public float facingDiraction = 1f;
 
@@ -50,7 +54,6 @@ public class GameCore : MonoBehaviour
 
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -61,8 +64,10 @@ public class GameCore : MonoBehaviour
     void Update()
     {
         DetectSwipe();
-
-        rb2d.velocity = new Vector2(mySpeed*facingDiraction, rb2d.velocity.y);
+        if (ableToControl)
+        {
+            rb2d.velocity = new Vector2(mySpeed * facingDiraction, rb2d.velocity.y);
+        }
 
         if (slashClug == true)
         {
