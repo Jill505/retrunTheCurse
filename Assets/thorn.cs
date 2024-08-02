@@ -34,6 +34,7 @@ public class thorn : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerCore>().ivaincible == false)
         {
+            gCore.deadReason = "¦y¨ë";
             pCore.injured(damage);
             StartCoroutine(knockBack());
             Debug.Log(gameObject.transform.parent.name + "§ðÀ»¦¨¥\¡I");

@@ -90,6 +90,7 @@ public class mobAI_outcastBandit_fighter : MonoBehaviour
     }
     public void hurtPlayer()
     {
+        GameObject.Find("GameCore").GetComponent<GameCore>().deadReason = "外來強盜進戰攻擊";
         pCore.injured(banditDamage);
     }
 

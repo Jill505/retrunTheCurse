@@ -73,7 +73,11 @@ public class MobCore : MonoBehaviour
             Debug.Log(gameObject.name + "is dead");
             dead = true;
 
-            Instantiate(deadSound);
+            if (deadSound != null)
+            {
+                Instantiate(deadSound);
+            }
+
             gameObject.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.5f);
 
             gCore.slashJam();

@@ -30,6 +30,9 @@ public class PlayerCore : MonoBehaviour
         if (health <= 0)
         {
             //player dead;
+            health = 0;
+            ivaincible = true;
+            gCore.PlayerDead();
         }
         else
         {

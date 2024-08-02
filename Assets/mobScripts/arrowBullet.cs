@@ -49,7 +49,9 @@ public class arrowBullet : MonoBehaviour
         if (collision.gameObject.tag == "Player" && collision.gameObject.GetComponent<PlayerCore>().ivaincible == false)
         {
             //pCore.injured(damage);
+            gCore.deadReason = "¤}½b¤âªº½b¥Ú";
             collision.gameObject.GetComponent<PlayerCore>().injured(damage);
+            Debug.Log("Triggered");
             StartCoroutine(knockBack());
         }
     }

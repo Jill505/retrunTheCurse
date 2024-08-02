@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameCore : MonoBehaviour
 {
+    public enum platform { phone, PC, console}
+    public platform ControlMode = platform.phone;//0=手機 1=電腦 2=手把
+
     public PlayerCore pCore;
 
     public GameObject player;
@@ -33,6 +37,8 @@ public class GameCore : MonoBehaviour
 
 
     //玩家參數
+    public bool deadClug;
+
     public float mySpeed;
 
     public float injuredImortalTime = 0.8f;
@@ -51,7 +57,18 @@ public class GameCore : MonoBehaviour
     public float slashCoolDown=0.8f;
     public float slashCoolDownTime;
 
+    //遊戲參數
+    public Animator canvasAnimator;
+    public Image deadPic;
+    public Sprite deadCondition;
+    public Sprite RevCondition;
+    public Text deadText;
+    public Button retryButton;
+    public string deadReason;
 
+    public bool ableToRev = false;
+
+    public int revChance = 50;//0=不會復活 1=100%必定復活 2=50% 3=33.3% 4=25%... 以此類推
 
 
     // Start is called before the first frame update
@@ -63,20 +80,46 @@ public class GameCore : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DetectSwipe();
-        if (ableToControl)
+        if (deadClug == false)
         {
-            rb2d.velocity = new Vector2(mySpeed * facingDiraction, rb2d.velocity.y);
-        }
+            switch (ControlMode)
+            {
+                case platform.phone:
+                    DetectSwipePhone();
+                    break;
 
-        if (slashClug == true)
-        {
-            //Debug.Log("slash clug functioning");
-            rb2d.velocity = new Vector2(0, 0);
+                case platform.PC:
+                    DetectSwipeComputer();
+                    break;
+
+                case platform.console:
+                    DetectSwipeConsole();
+                    break;
+
+                default:
+                    break;
+            }
+
+
+
+            if (ableToControl)
+            {
+                rb2d.velocity = new Vector2(mySpeed * facingDiraction, rb2d.velocity.y);
+            }
+
+            if (slashClug == true)
+            {
+                //Debug.Log("slash clug functioning");
+                rb2d.velocity = new Vector2(0, 0);
+            }
+            if (slashing == true)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+            }
         }
-        if (slashing == true)
+        else
         {
-            rb2d.velocity = new Vector2(rb2d.velocity.x, 0);
+            pCore.ivaincible = true;
         }
     }
 
@@ -99,7 +142,63 @@ public class GameCore : MonoBehaviour
         }
     }
 
-    void DetectSwipe()
+    public void restartGame()
+    {
+        deadClug = false;
+    }
+
+    public void PlayerDead()
+    {
+        deadClug = true;
+        //countingIfRev
+        int randomRevEvent = Random.Range(1,revChance);
+        if (randomRevEvent == 1)
+        {
+            //rev
+            deadPic.sprite = RevCondition;
+            ableToRev = true;
+            retryButton.gameObject.transform.GetChild(0).GetComponent<Text>().text = "復活！";
+            deadReason = "你死了... 嗎?";
+            //play music
+        }
+        else
+        {
+            deadPic.sprite = deadCondition;
+        }
+        deadText.text = "死亡原因："+deadReason;
+
+        //camera stop tracking
+
+        //stop allowing player moving
+        facingDiraction = 0;
+        //show retry
+        canvasAnimator.SetBool("dead",true);
+        //record grade
+    }
+
+    public void RevOrRetry()
+    {
+        if (ableToRev == false)
+        {
+            //重試 重新加載區塊
+            SceneManager.LoadScene("game");
+        }
+        else
+        {
+            //復活
+            PlayerRevive();
+        }
+    }
+
+    public void PlayerRevive()
+    {
+        canvasAnimator.SetBool("dead", false);
+        pCore.health = 1;
+        deadClug = false;
+        pCore.ivaincible = false;
+    }
+
+    void DetectSwipePhone()
     {
 
         // 偵測到手指按下螢幕
@@ -139,14 +238,13 @@ public class GameCore : MonoBehaviour
             }
         }
     }
-
     void DetectSwipeDirection(float angle)
     {
         // 根據滑動角度判定滑動方向
         if (angle > -45 && angle <= 45)
         {
             //Debug.Log("向右滑動");
-            player.transform.localRotation = Quaternion.Euler(0,0,0);
+            player.transform.localRotation = Quaternion.Euler(0, 0, 0);
             facingDiraction = 1;
         }
         else if (angle > 45 && angle <= 135)
@@ -168,6 +266,49 @@ public class GameCore : MonoBehaviour
             facingDiraction = -1;
         }
     }
+
+
+    void DetectSwipeComputer()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            player.transform.localRotation = Quaternion.Euler(0, 180, 0);
+            facingDiraction = -1;
+
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            player.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            facingDiraction = 1;
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.J))
+        {
+            if (slashCooldowning == false)
+            {
+                slash();
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            facingDiraction = 0;
+            mySpeed = 0;
+        }
+
+    }
+
+    void DetectSwipeConsole()
+    {
+
+    }
+
 
     void Jump()
     {
