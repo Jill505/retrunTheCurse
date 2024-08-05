@@ -207,7 +207,7 @@ MonoBehaviour:
   hitAngle: 0
   hitDiraction: {x: 0, y: 0}
   shootingCD: 3.5
-  AccumulateTime: 2
+  AccumulateTime: 1.75
   arrowSpeed: 6
   arrowDamage: 1
   shootingCDcal: 0

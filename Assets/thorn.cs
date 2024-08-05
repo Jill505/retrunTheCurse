@@ -37,7 +37,7 @@ public class thorn : MonoBehaviour
             gCore.deadReason = "尖刺";
             pCore.injured(damage);
             StartCoroutine(knockBack());
-            Debug.Log(gameObject.transform.parent.name + "攻擊成功！");
+            //Debug.Log(gameObject.transform.parent.name + "攻擊成功！");
         }
     }
 

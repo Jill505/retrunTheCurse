@@ -20,6 +20,8 @@ public class JigsawCore : MonoBehaviour
 
     GameObject JigsawOnLoad;
 
+    public int countDebugJammerCounter;
+
     public bool[] lastTop = new bool[18];
     // Start is called before the first frame update
     void Start()
@@ -96,10 +98,11 @@ public class JigsawCore : MonoBehaviour
 
         for (int i = 0; i < 18; i++)
         {
-            if (lastTop[i] == compare[i] == true)
+            if (lastTop[i] == compare[i] && lastTop[i] ==  true)
             {
                 //執行生成
                 succ = true;
+                Debug.Log("生成判定：可");
                 break;
             }
         }
@@ -109,11 +112,24 @@ public class JigsawCore : MonoBehaviour
             JigsawOnLoad = Floor_0[RandomNum];
             lastTop = Floor_0[RandomNum].GetComponent<JigsawCornerStone>().top;
             InsJigsaw();
+            Debug.Log("生成成功");
+
+            countDebugJammerCounter = 0;
         }
         else
         {
             //re generate
-            GenerateFloor0();
+            if (countDebugJammerCounter < 25) {
+
+                GenerateFloor0();
+                Debug.Log("條件不符 重新嘗試生成");
+
+                countDebugJammerCounter++;
+            }
+            else
+            {
+                Debug.Log("生成過多次導致系統運算過載");
+            }
         }
     }
 }
