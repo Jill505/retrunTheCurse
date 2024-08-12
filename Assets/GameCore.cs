@@ -12,6 +12,7 @@ public class GameCore : MonoBehaviour
     public PlayerCore pCore;
 
     public GameObject player;
+    public GameObject retryBuutton;
     public Rigidbody2D rb2d;
 
     public GameObject damageZone;
@@ -82,6 +83,7 @@ public class GameCore : MonoBehaviour
     {
         if (deadClug == false)
         {
+            retryBuutton.SetActive(false);
             switch (ControlMode)
             {
                 case platform.phone:
@@ -120,6 +122,7 @@ public class GameCore : MonoBehaviour
         else
         {
             pCore.ivaincible = true;
+            retryBuutton.SetActive(true);
         }
     }
 

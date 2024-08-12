@@ -36,6 +36,8 @@ public class arrowBullet : MonoBehaviour
         float hitAngle = angleInRadians * Mathf.Rad2Deg;
 
         transform.localEulerAngles = new Vector3(0,0,hitAngle);
+
+        Destroy(gameObject,10f);
     }
 
     // Update is called once per frame
