@@ -35,7 +35,8 @@ public class GameCore : MonoBehaviour
     public float swipeRange = 50; // 判定滑動的距離範圍
     public float tapRange = 10; // 判定點擊的距離範圍
 
-
+    //事件參數
+    public bool inBossFight;
 
     //玩家參數
     public bool deadClug;
@@ -59,6 +60,12 @@ public class GameCore : MonoBehaviour
     public float slashCoolDownTime;
 
     //遊戲參數
+
+    public float TotalScore;
+    public float highScore;
+    public float killScore;
+
+
     public Animator canvasAnimator;
     public Image deadPic;
     public Sprite deadCondition;

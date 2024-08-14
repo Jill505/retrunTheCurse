@@ -36,7 +36,7 @@ public class JigsawCore : MonoBehaviour
         levelCount = 0;
 
         //set Base Jigsaw
-        Instantiate(JigsawBaseSpeical,new Vector3(0,0,0), Quaternion.identity);
+        //Instantiate(JigsawBaseSpeical,new Vector3(0,0,0), Quaternion.identity);
 
         lastTop = JigsawBaseSpeical.GetComponent<JigsawCornerStone>().top;
 

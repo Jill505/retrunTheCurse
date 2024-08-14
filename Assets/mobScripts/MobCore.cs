@@ -11,6 +11,7 @@ public class MobCore : MonoBehaviour
 
     public float hp;
     public bool dead;
+    public float maxHp = 1;
 
     public GameObject deadSound;
     public bool aiFunctioning = true;
