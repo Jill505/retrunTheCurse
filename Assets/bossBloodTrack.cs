@@ -11,6 +11,8 @@ public class bossBloodTrack : MonoBehaviour
 
     public Image bloodImage;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,5 +29,14 @@ public class bossBloodTrack : MonoBehaviour
                 bloodImage.fillAmount = mCore.hp / mCore.maxHp;
             }
         }
+    }
+   
+    public void switchOn()
+    {
+        animator.SetBool("active",true);
+    }
+    public void switchOff()
+    {
+        animator.SetBool("active", false);
     }
 }

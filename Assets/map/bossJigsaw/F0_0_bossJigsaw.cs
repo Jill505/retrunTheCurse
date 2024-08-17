@@ -28,6 +28,7 @@ public class F0_0_bossJigsaw : MonoBehaviour
         {
             if (collision.gameObject.tag == "Player")
             {
+                GameObject.Find("BossLevelBloodCanvas").GetComponent<bossBloodTrack>().switchOn();
                 cast = true;
                 Debug.Log("Player get into the zone!");
 

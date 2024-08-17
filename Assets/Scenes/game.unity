@@ -1656,6 +1656,19 @@ MonoBehaviour:
   pCore: {fileID: 0}
   gCore: {fileID: 0}
   mCore: {fileID: 0}
+  rb2d: {fileID: 0}
+  castCD: 0
+  casting: 0
+  bossDashCD: 5
+  bossDashCDcount: 7
+  skill_SpawnCrystalCD: 7
+  skill_SpawnCrystalCDcount: 1
+  skill_dashAttackCD: 5
+  skill_dashAttackCDcount: 3
+  skill_bombBucketCD: 4
+  skill_bombBucketCDcount: 0.5
+  skill_bladeSwordCD: 7
+  skill_bladeSwordCDcount: 5
 --- !u!114 &327320814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1740,12 +1753,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 327320812}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 4.2, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 578597081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &327320817
 Rigidbody2D:
@@ -2201,6 +2214,7 @@ GameObject:
   - component: {fileID: 572860739}
   - component: {fileID: 572860738}
   - component: {fileID: 572860737}
+  - component: {fileID: 572860742}
   m_Layer: 5
   m_Name: BossLevelBloodCanvas
   m_TagString: Untagged
@@ -2220,9 +2234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf7d22b7ce1ac440811eed34bab7328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tracking: 0
+  Tracking: 1
   mCore: {fileID: 327320814}
   bloodImage: {fileID: 1992190695}
+  animator: {fileID: 572860742}
 --- !u!114 &572860738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2307,6 +2322,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!95 &572860742
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 572860736}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18195d762394d254b922dbf6c6cbf4c9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &578597079 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9106635145653689771, guid: 66baa20381a72484a9cc946ea440add7, type: 3}
@@ -4491,6 +4527,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6248702370481021100, guid: 66baa20381a72484a9cc946ea440add7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1935566142}
+    - targetCorrespondingSourceObject: {fileID: 6248702370481021100, guid: 66baa20381a72484a9cc946ea440add7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 327320816}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9106635145653689771, guid: 66baa20381a72484a9cc946ea440add7, type: 3}
       insertIndex: -1
@@ -6978,4 +7017,3 @@ SceneRoots:
   - {fileID: 247489424}
   - {fileID: 35978977}
   - {fileID: 1690746711}
-  - {fileID: 327320816}
