@@ -35,6 +35,8 @@ public class F0_0_bossJigsaw : MonoBehaviour
                 //限制場地
                 openNextStage();
 
+                GameObject.Find("GameCore").GetComponent<GameCore>().bossNameShowText.text = "外來強盜首領\n牧之";
+                GameObject.Find("gmaeCanvas").GetComponent<Animator>().SetTrigger("bossTrigger");
                 //控制玩家無法移動
 
                 //召喚boss

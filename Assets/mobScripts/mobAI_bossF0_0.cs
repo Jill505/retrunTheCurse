@@ -1,5 +1,9 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class mobAI_bossF0_0 : MonoBehaviour
@@ -11,6 +15,9 @@ public class mobAI_bossF0_0 : MonoBehaviour
     public Rigidbody2D rb2d;
 
     public GameObject thorns;
+    public GameObject firePool;
+    public GameObject bumbBarrel;
+    public GameObject foot;
 
     //boss AI把计
     public float castCD = 0.5f;
@@ -24,18 +31,26 @@ public class mobAI_bossF0_0 : MonoBehaviour
     //boss skill把计
     public float skill_SpawnCrystalCD = 7f;
     public float skill_SpawnCrystalCDcount = 1f;
-
     public float skill_SpwanCrystalInterval = 0.3f;
     public int skill_SpawnCrystalNumber = 5;
 
+    public GameObject slashZone;
     public float skill_dashAttackCD = 5f;
     public float skill_dashAttackCDcount = 3f;
+    public float skill_dashAttackHorForce = 14f;
+    public float skill_dashAttackVarForce = 4f;
+    public float skill_dashAttackDamage = 1f;
 
     public float skill_bombBucketCD = 4f;
     public float skill_bombBucketCDcount = 0.5f;
+    public float skill_bombBucketHorForce = 3f;
+    public float skill_bombBucketVarForce = 3f;
 
     public float skill_bladeSwordCD = 7f;
     public float skill_bladeSwordCDcount = 5f;
+    public float skill_bladeSwordHorForce = 3f;
+    public float skill_bladeSwordVarForce = 10f;
+    public float skill_bladeSwordDamage = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -140,6 +155,7 @@ public class mobAI_bossF0_0 : MonoBehaviour
     public void skill_SpawnCrystal()
     {
         Debug.Log("垂");
+        castBreaking(Random.Range(0.8f, 1.8f));
         StartCoroutine(spawnCrystalCoroutine());
     }
 
@@ -155,24 +171,59 @@ public class mobAI_bossF0_0 : MonoBehaviour
         {
             setpos.x += intervalDistance* setDir;
             Instantiate(thorns,setpos,Quaternion.identity);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.155f);
         }
     }
-public void skill_dashAttack()
+    public void skill_dashAttack()
     {
         Debug.Log("侥脓");
+        rb2d.velocity += new Vector2(1*skill_dashAttackHorForce*facingDiraction,1*skill_dashAttackVarForce);
+        //openSlashDec    
+        slashZone.SetActive(true);
+        Invoke("swapSkillDashAttack",2f);
 
+        castBreaking(Random.Range(1f,1.8f));
     }
+    public void swapSkillDashAttack()
+    {
+        slashZone.SetActive(false);
+    }
+    public void slashHurtPlayer()
+    {
+        GameObject.Find("GameCore").GetComponent<GameCore>().deadReason = "眏祍烩侥ю阑";
+        pCore.injured(skill_dashAttackDamage);
+    }
+
+    public bool bladJumping = false;
     public void skill_bladeSword()
     {
         Debug.Log("疨糃");
+        castBreaking(Random.Range(2.2f, 4f));
+        rb2d.velocity += new Vector2(1 * skill_bladeSwordHorForce * facingDiraction, 1 * skill_bladeSwordVarForce);
 
+        rb2d.gravityScale = 3;
+
+        bladJumping = true;
+        //
+        Invoke("bladeInvoke",0.1f);
+    }
+    public void bladeInvoke()
+    {
+        foot.GetComponent<Collider2D>().enabled = true;
+    }
+    public void skill_bladeSwordHitGround()
+    {
+        Instantiate(firePool,new Vector2(transform.position.x,transform.position.y-0.3f),Quaternion.identity);
+        rb2d.gravityScale = 1;
     }
 
     public void skill_bombBucket()
     {
         Debug.Log("媚表");
+        castBreaking(Random.Range(0.1f, 0.8f));
 
+        GameObject insBumb = Instantiate(bumbBarrel, new Vector2(transform.position.x, transform.position.y +0.8f), Quaternion.identity);
+        insBumb.GetComponent<Rigidbody2D>().velocity += new Vector2(Random.RandomRange(1.5f,4f),Random.RandomRange(3f,6.3f));
     }
 
 

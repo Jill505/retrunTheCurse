@@ -21,6 +21,8 @@ public class GameCore : MonoBehaviour
 
     public GameObject slashSoundEffect;
 
+    public Text bossNameShowText;
+
 
     public bool jumpClug;
     public bool slashing;

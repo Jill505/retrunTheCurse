@@ -7,6 +7,7 @@ TagManager:
   - wall
   - ground
   - mob
+  - barrel
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - Water
   - UI
   - player
-  - 
-  - 
+  - ground
+  - boss
   - 
   - 
   - 
