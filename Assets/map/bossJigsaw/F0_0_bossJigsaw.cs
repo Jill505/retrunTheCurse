@@ -10,16 +10,25 @@ public class F0_0_bossJigsaw : MonoBehaviour
 
     public mobAI_bossF0_0 boss_Ai;
     public MobCore boss_Core;
+
+    public bool deadClug = false;
     // Start is called before the first frame update
     void Start()
     {
-       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (boss_Core.dead == true)
+        {
+            if (deadClug == false)
+            {
+                Debug.Log("trigger");
+                GameObject.Find("GameCore").GetComponent<GameCore>().winGame();
+                deadClug = true;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -57,13 +66,13 @@ public class F0_0_bossJigsaw : MonoBehaviour
         boss_Core.trackingDistance = 20;
         boss_Core.aiFunctioning = true;
     }
-
     public void openNextStage()
     {
         //Play Animate
         bossJigsawAnimator.SetTrigger("active");
-    }
 
+        //TEMP
+    }
     public void closeRoad()
     {
 

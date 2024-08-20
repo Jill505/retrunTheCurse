@@ -61,6 +61,8 @@ public class mobAI_bossF0_0 : MonoBehaviour
         mCore = gameObject.GetComponent<MobCore>();
 
         rb2d = gameObject.GetComponent<Rigidbody2D>();
+
+        GameObject.Find("BossLevelBloodCanvas").GetComponent<bossBloodTrack>().mCore = mCore;
     }
 
     // Update is called once per frame
@@ -180,7 +182,7 @@ public class mobAI_bossF0_0 : MonoBehaviour
         rb2d.velocity += new Vector2(1*skill_dashAttackHorForce*facingDiraction,1*skill_dashAttackVarForce);
         //openSlashDec    
         slashZone.SetActive(true);
-        Invoke("swapSkillDashAttack",2f);
+        Invoke("swapSkillDashAttack",0.5f);
 
         castBreaking(Random.Range(1f,1.8f));
     }

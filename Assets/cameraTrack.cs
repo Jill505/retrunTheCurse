@@ -39,14 +39,30 @@ public class cameraTrack : MonoBehaviour
 
     void LateUpdate()
     {
-        
+        /*
         if (CameraTracking == true)
         {
             if (target != null)
             {
                 if (transform.position != target.position)
                 {
-                    Vector3 targetpos = target.position;
+                    Vector3 targetpos = new Vector3(-0.315f,target.position.y,target.position.z);
+                    transform.position = Vector3.Lerp(transform.position, targetpos, fulence);
+                }
+            }
+        }*/
+    }
+
+    private void FixedUpdate()
+    {
+
+        if (CameraTracking == true)
+        {
+            if (target != null)
+            {
+                if (transform.position != target.position)
+                {
+                    Vector3 targetpos = new Vector3(-0.315f, target.position.y, target.position.z);
                     transform.position = Vector3.Lerp(transform.position, targetpos, fulence);
                 }
             }

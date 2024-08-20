@@ -22,6 +22,7 @@ public class GameCore : MonoBehaviour
     public GameObject slashSoundEffect;
 
     public Text bossNameShowText;
+    public Text hpShow;
 
 
     public bool jumpClug;
@@ -133,6 +134,8 @@ public class GameCore : MonoBehaviour
             pCore.ivaincible = true;
             retryBuutton.SetActive(true);
         }
+
+        hpShow.text = "玩家血量：\n" +pCore.health;
     }
 
     private void FixedUpdate()
@@ -390,4 +393,19 @@ public class GameCore : MonoBehaviour
         slashCoolDownTime = slashCoolDown;
         slashCooldowning = false;
     }
+
+
+
+    //Test
+    public GameObject winCondit;
+    public void winGame()
+    {
+        winCondit.SetActive(true);
+    }
+    public void killPlayer()
+    {
+        GameObject.Find("GameCore").GetComponent<GameCore>().deadReason = "恭喜完成遊戲！\n因為後面沒內容了所以我們讓你掛掉";
+        GameObject.Find("thePlayer").GetComponent<PlayerCore>().injured(1000);
+    }
+
 }

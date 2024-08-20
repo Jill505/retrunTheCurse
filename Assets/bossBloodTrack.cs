@@ -16,7 +16,7 @@ public class bossBloodTrack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,7 +24,7 @@ public class bossBloodTrack : MonoBehaviour
     {
         if (Tracking)
         {
-            if (mCore.isActiveAndEnabled)
+            if (mCore != null)
             {
                 bloodImage.fillAmount = mCore.hp / mCore.maxHp;
             }

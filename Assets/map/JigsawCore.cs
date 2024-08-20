@@ -40,7 +40,10 @@ public class JigsawCore : MonoBehaviour
 
         lastTop = JigsawBaseSpeical.GetComponent<JigsawCornerStone>().top;
 
-        GenerateNewJigsaw();
+        for (int i = 0; i < 25; i++)
+        {
+            GenerateNewJigsaw();
+        }
     }
 
     // Update is called once per frame
@@ -55,7 +58,11 @@ public class JigsawCore : MonoBehaviour
 
         if (levelCount == 25)//某種條件 載入boss關卡
         {
-
+            if (Floor == 0)
+            {
+                JigsawOnLoad = BossFloor[0];
+                InsJigsaw();
+            }
         }
         else
         {
